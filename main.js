@@ -5,7 +5,7 @@ document.getElementById('getCoordsButton').addEventListener('click', getCoordina
 
 // Function to get coordinates
 export function getCoordinates() {
-  const locationInput = document.getElementById('locationInput').value; // Replace this with the actual location or user input
+  const locationInput = document.getElementById('locationInput').value;
   const opencageApiKey = '980608bb3ed8482b92fdd9813c52d9d5';
   const opencageApiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(locationInput)}&key=${opencageApiKey}`;
 
@@ -52,7 +52,6 @@ function renderWeather({ current, daily, hourly }) {
   renderCurrentWeather(current)
   renderDailyWeather(daily)
   renderHourlyWeather(hourly)
-  document.body.classList.remove("blurred")
 }
 
 function setValue(selector, value, { parent = document } = {}) {
@@ -65,7 +64,7 @@ function getIconUrl(iconCode) {
 
 const currentIcon = document.querySelector("[data-current-icon]")
 function renderCurrentWeather(current) {
-  currentIcon.src = getIconUrl(current.iconCode)
+  //currentIcon.src = getIconUrl(current.iconCode)
   setValue("current-temp", current.currentTemp)
   setValue("current-high", current.highTemp)
   setValue("current-low", current.lowTemp)
