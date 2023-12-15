@@ -34,11 +34,6 @@ body{
   height: 90vh;
 }
 
-.blurred{
-  filter: blur(3px);
-  overflow: hidden;
-}
-
 .header{
   display: flex;
   align-items: center;

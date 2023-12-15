@@ -1,26 +1,52 @@
-import { getWeather } from "./weather"
-import { ICON_MAP } from "./iconmap"
+import { getWeather } from "./weather";
+import { ICON_MAP } from "./iconmap";
 
-navigator.geolocation.getCurrentPosition(positionSuccess, positionError)
+document.getElementById('getCoordsButton').addEventListener('click', getCoordinates);
 
-function positionSuccess({ coords }) {
-  getWeather(
-    coords.latitude,
-    coords.longitude,
-    Intl.DateTimeFormat().resolvedOptions().timeZone
-  )
-    .then(renderWeather)
-    .catch(e => {
-      console.error(e)
-      alert("Error getting weather.")
-    })
+// Function to get coordinates
+export function getCoordinates() {
+  const locationInput = document.getElementById('locationInput').value; // Replace this with the actual location or user input
+  const opencageApiKey = '980608bb3ed8482b92fdd9813c52d9d5';
+  const opencageApiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(locationInput)}&key=${opencageApiKey}`;
+
+  
+  // Use fetch to make a request to OpenCage API
+  fetch(opencageApiUrl)
+    .then(response => response.json())
+    .then(data => displayCoordinates(data))
+    .catch(error => {
+      console.error(error);
+      alert("Error getting coordinates from OpenCage.");
+    });
 }
 
-function positionError() {
-  alert(
-    "There was an error getting your location. Please allow us to use your location and refresh the page."
-  )
+// Function to display coordinates and fetch weather data
+export function displayCoordinates(data) {
+  if (data.results && data.results.length > 0) {
+    const location = data.results[0].geometry;
+    const latitude = location.lat;
+    const longitude = location.lng;
+    const timezone = data.results[0].annotations.timezone.name;
+
+    getWeather(latitude, longitude, timezone)
+      .then(renderWeather)
+      .catch(e => {
+        console.error(e);
+        alert("Error getting weather.");
+      });
+  }
 }
+
+// Event listener for the button
+document.addEventListener('DOMContentLoaded', () => {
+  const getCoordsButton = document.getElementById('getCoordsButton');
+
+  if (getCoordsButton) {
+    getCoordsButton.addEventListener('click', getCoordinates);
+  }
+});
+
+
 
 function renderWeather({ current, daily, hourly }) {
   renderCurrentWeather(current)
