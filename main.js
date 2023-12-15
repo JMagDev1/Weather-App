@@ -1,5 +1,5 @@
-import { getWeather } from "./weather";
-import { ICON_MAP } from "./iconmap";
+import { getWeather } from "./weather.js";
+import { ICON_MAP } from "./iconmap.js";
 
 document.getElementById('getCoordsButton').addEventListener('click', getCoordinates);
 
