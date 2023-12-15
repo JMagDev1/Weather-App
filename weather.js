@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "./node_modules/axios/lib/axios.js"
 
 export function getWeather(lat, lon){
 
