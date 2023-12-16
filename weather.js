@@ -1,25 +1,28 @@
-import axios from "./node_modules/axios/lib/axios.js"
+export function getWeather(lat, lon) {
+  const apiUrl = `https://api.open-meteo.com/v1/forecast?hourly=temperature_2m,apparent_temperature,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum&current_weather=true&temperature_&windspeed_unit=mph&precipitation_unit=inch&timeformat=unixtime&latitude=${lat}&longitude=${lon}`;
 
-export function getWeather(lat, lon){
-
-    return axios
-    .get(
-      "https://api.open-meteo.com/v1/forecast?hourly=temperature_2m,apparent_temperature,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum&current_weather=true&temperature_&windspeed_unit=mph&precipitation_unit=inch&timeformat=unixtime",
-      {
-        params: {
-          latitude: lat,
-          longitude: lon,
-        },
+  return fetch(apiUrl)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
       }
-    ).then(({data}) => {
-        return{
-            current: parseCurrentWeather(data),
-            daily: parseDailyWeather(data),
-            hourly: parseHourlyWeather(data),
-        }
+      return response.json();
     })
+    .then(data => {
+      return {
+        current: parseCurrentWeather(data),
+        daily: parseDailyWeather(data),
+        hourly: parseHourlyWeather(data),
+      };
+    })
+    .catch(error => {
+      console.error(error);
+      alert("Error getting weather.");
+    });
+}
 
-} 
+// Rest of your parsing functions remain unchanged...
+
 
 function parseCurrentWeather({ current_weather, daily }) {
     const {
