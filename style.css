@@ -5,7 +5,7 @@
 body{
   margin: 0;
   margin: 0;
-  background-color: hsl(200, 100%, 85%);
+  background-color: transparent;
   color: hsl(200, 100%, 10%);
   font-family: sans-serif;
 }
@@ -31,7 +31,7 @@ body{
 .card{
   margin-left: 12.5vw;
   width: 75vw;
-  height: 90vh;
+  background-color: rgba(230, 230, 230, 0.55);
 }
 
 .header{
@@ -47,6 +47,30 @@ body{
   margin: 0.5rem;
   padding: 0.5rem;
   border-right: 2px solid hsl(200, 100%, 10%);
+}
+
+.header-top{
+  padding-left: 2vw;
+  display: grid;
+  grid-template-columns: repeat(2,auto);
+  grid-template-rows: repeat(1,auto);
+}
+
+#locationInput{
+  width: 15vw;
+  height: 5vh;
+  border: none;
+  border-radius: 2.5vh;
+  background-color: rgba(230, 230, 230, 0.75);
+}
+
+#getCoordsButton{
+  border: none;
+  background-color: transparent;
+}
+
+#getCoordsButton:hover{
+  cursor: pointer;
 }
 
 .weather-icon{
@@ -122,14 +146,10 @@ body{
 }
 
 .hour-row {
-  background-color: hsl(200, 60%, 75%);
-}
-
-.hour-row:nth-child(2n) {
-  background-color: hsl(200, 60%, 70%);
+  background-color: rgba(230, 230, 230, 0.55);
 }
 
 .hour-row > td {
   padding: 0.25rem 0.5rem;
-  
 }
+
