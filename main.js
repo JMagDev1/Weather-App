@@ -98,7 +98,6 @@ function renderHourlyWeather(hourly) {
     setValue("temp", hour.temp, { parent: element })
     setValue("fl-temp", hour.feelsLike, { parent: element })
     setValue("wind", hour.windSpeed, { parent: element })
-    setValue("precip", hour.precip, { parent: element })
     setValue("day", DAY_FORMATTER.format(hour.timestamp), { parent: element })
     setValue("time", HOUR_FORMATTER.format(hour.timestamp), { parent: element })
     element.querySelector("[data-icon]").src = getIconUrl(hour.iconCode)
