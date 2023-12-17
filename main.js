@@ -8,7 +8,24 @@ document.getElementById('locationInput').addEventListener("keyup", function (eve
     }
   });
 
-document.getElementById('getCoordsButton').addEventListener('click', getCoordinates);
+window.onload = function(){
+    const locationInput = "Northern Ireland";
+    document.getElementById('locationInput').value = "Northern Ireland";
+    const opencageApiKey = '980608bb3ed8482b92fdd9813c52d9d5';
+    const opencageApiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(locationInput)}&key=${opencageApiKey}`;
+    document.body.style.backgroundImage = "url('https://source.unsplash.com/1600x900/?" + locationInput + "')";
+  
+    // Use fetch to make a request to OpenCage API
+  fetch(opencageApiUrl)
+  .then(response => response.json())
+  .then(data => displayCoordinates(data))
+  .catch(error => {
+    console.log(error);
+    alert("Error getting coordinates from OpenCage.");
+  });
+  
+}
+
 
 // Function to get coordinates
 export function getCoordinates() {
@@ -17,13 +34,17 @@ export function getCoordinates() {
   const opencageApiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(locationInput)}&key=${opencageApiKey}`;
 
   document.body.style.backgroundImage = "url('https://source.unsplash.com/1600x900/?" + locationInput + "')";
+
+  if(document.body.style.backgroundImage = "url('https://images.unsplash.com/source-404')"){
+    document.body.style.backgroundImage = "url('https://source.unsplash.com/1600x900/?" + "landscape" + "')";
+  }
   
   // Use fetch to make a request to OpenCage API
   fetch(opencageApiUrl)
     .then(response => response.json())
     .then(data => displayCoordinates(data))
     .catch(error => {
-      console.error(error);
+      console.log(error);
       alert("Error getting coordinates from OpenCage.");
     });
 }
@@ -54,12 +75,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-
-
 function renderWeather({ current, daily, hourly }) {
   renderCurrentWeather(current)
   renderDailyWeather(daily)
   renderHourlyWeather(hourly)
+  document.body.classList.add("blurred")
+  document.body.classList.remove("blurred")
 }
 
 function setValue(selector, value, { parent = document } = {}) {

@@ -10,6 +10,11 @@ body{
   font-family: sans-serif;
 }
 
+.blurred {
+  filter: blur(3px);
+  overflow: hidden;
+}
+
 /* SCROLL BAR*/
 /* Target the scrollbar */
 ::-webkit-scrollbar {
