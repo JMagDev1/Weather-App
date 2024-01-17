@@ -13,7 +13,7 @@ document.getElementById('locationInput').addEventListener("keyup", function (eve
     document.getElementById('locationInput').value = "Northern Ireland";
     const opencageApiKey = '980608bb3ed8482b92fdd9813c52d9d5';
     const opencageApiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(locationInput)}&key=${opencageApiKey}`;
-    document.body.style.backgroundImage = "url('https://source.unsplash.com/1600x900/?" + locationInput + "')";
+    document.body.style.backgroundImage = "url('https://source.unsplash.com/1600x1000/?" + locationInput + "')";
   
     // Use fetch to make a request to OpenCage API
   fetch(opencageApiUrl)
